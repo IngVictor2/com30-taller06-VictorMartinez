@@ -1,0 +1,80 @@
+<section class="tarjeta listado">
+  <div class="tarjeta-cabecera">
+    <div>
+      <p class="etiqueta">Bandeja de entrada</p>
+      <h2>Solicitudes registradas</h2>
+    </div>
+    <div class="contadores">
+      <span><strong>{{ total() }}</strong> total</span>
+      <span><strong>{{ pendientes() }}</strong> pendientes</span>
+    </div>
+  </div>
+
+  @for (solicitud of solicitudes(); track solicitud.id) {
+    <article class="registro">
+      <div class="registro-cabecera">
+        <div>
+          <h3>{{ solicitud.solicitante }}</h3>
+          <p class="correo">{{ solicitud.correo }}</p>
+        </div>
+        <div class="badges">
+          <span class="badge {{ clasePrioridad(solicitud) }}">{{ solicitud.prioridad }}</span>
+          <span class="badge {{ claseEstado(solicitud.estado) }}">{{ solicitud.estado }}</span>
+        </div>
+      </div>
+
+      <p class="descripcion">{{ solicitud.descripcion }}</p>
+
+      <div class="meta">
+        <span><b>Categoría:</b> {{ solicitud.categoria }}</span>
+        <span><b>Fecha:</b> {{ formatearFecha(solicitud.fecha) }}</span>
+        <span><b>Impacto:</b> {{ solicitud.impacto || 'No registrado' }}</span>
+      </div>
+
+      <div class="equipos">
+        @for (equipo of solicitud.equipos; track equipo.codigo) {
+          <span class="equipo">{{ equipo.codigo }} · {{ equipo.ubicacion }}</span>
+        }
+      </div>
+
+      <div class="registro-acciones">
+        <label class="selector-estado">
+          <span>Cambiar estado</span>
+          <select (change)="cambiarEstado(solicitud.id, $event)">
+            @for (estado of estados; track estado) {
+              <option [value]="estado" [selected]="estado === solicitud.estado">{{ estado }}</option>
+            }
+          </select>
+        </label>
+        <button type="button" class="btn-eliminar" (click)="eliminar(solicitud.id)">Eliminar</button>
+      </div>
+    </article>
+  } @empty {
+    <div class="vacio">
+      <span class="vacio-icono">📭</span>
+      <h3>No hay solicitudes registradas</h3>
+      <p>Use el formulario para registrar el primer caso de soporte.</p>
+    </div>
+  }
+
+  <section class="resumen">
+    <div class="resumen-cabecera">
+      <div>
+        <p class="etiqueta">Panel diferido</p>
+        <h3>Resumen del tablero</h3>
+      </div>
+      <span class="chip">&#64;defer</span>
+    </div>
+
+    @defer (on interaction) {
+      <app-resumen-panel />
+    } @placeholder {
+      <button type="button" class="btn-resumen">
+        <span>Ver resumen del tablero</span>
+        <small>El panel se carga cuando usted interactúa con este botón.</small>
+      </button>
+    } @loading (minimum 250ms) {
+      <p class="cargando">Cargando resumen…</p>
+    }
+  </section>
+</section>

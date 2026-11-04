@@ -1,0 +1,112 @@
+:host {
+  display: block;
+}
+
+.panel {
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f8fbff, #eff6ff);
+  padding: 0.9rem;
+}
+
+.medidor {
+  --avance: 0%;
+  position: relative;
+  height: 1.55rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.medidor::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: var(--avance);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--azul), var(--cian));
+  transition: width 0.4s ease;
+}
+
+.medidor-texto {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 0.7rem;
+  color: #1e3a8a;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.medidor-texto strong {
+  font-size: 0.74rem;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.dato {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 9px;
+  background: var(--blanco);
+  border: 1px solid #e2e8f0;
+  padding: 0.45rem 0.2rem;
+}
+
+.dato span {
+  color: var(--tinta);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.dato small {
+  color: #64748b;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.dato.pendiente span {
+  color: #b45309;
+}
+
+.dato.proceso span {
+  color: #0369a1;
+}
+
+.dato.resuelto span {
+  color: #15803d;
+}
+
+.dato.critica span {
+  color: #b91c1c;
+}
+
+.nota {
+  color: #64748b;
+  font-size: 0.68rem;
+  margin-top: 0.65rem;
+}
+
+.nota code {
+  background: #dbeafe;
+  border-radius: 4px;
+  color: #1e40af;
+  padding: 0.05rem 0.25rem;
+}
+
+@media (max-width: 480px) {
+  .datos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

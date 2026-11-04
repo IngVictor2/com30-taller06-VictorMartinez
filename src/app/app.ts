@@ -1,12 +1,17 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { SolicitudForm } from './components/solicitud-form/solicitud-form';
+import { SolicitudList } from './components/solicitud-list/solicitud-list';
+import { SolicitudService } from './services/solicitud.service';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  imports: [SolicitudForm, SolicitudList],
   templateUrl: './app.html',
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('taller06');
+  private readonly servicio = inject(SolicitudService);
+
+  readonly total = this.servicio.total;
+  readonly pendientes = this.servicio.pendientes;
 }

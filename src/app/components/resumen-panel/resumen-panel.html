@@ -1,0 +1,33 @@
+<div class="panel">
+  <div class="medidor" [style.--avance]="avance() + '%'">
+    <div class="medidor-texto">
+      <strong>{{ avance() }}%</strong>
+      <span>resueltas</span>
+    </div>
+  </div>
+
+  <div class="datos">
+    <div class="dato">
+      <span>{{ total() }}</span>
+      <small>Total</small>
+    </div>
+    <div class="dato pendiente">
+      <span>{{ pendientes() }}</span>
+      <small>Pendientes</small>
+    </div>
+    <div class="dato proceso">
+      <span>{{ enProceso() }}</span>
+      <small>En proceso</small>
+    </div>
+    <div class="dato resuelto">
+      <span>{{ resueltos() }}</span>
+      <small>Resueltas</small>
+    </div>
+    <div class="dato critica">
+      <span>{{ criticas() }}</span>
+      <small>Críticas</small>
+    </div>
+  </div>
+
+  <p class="nota">Este panel se cargó con <code>&#64;defer (on interaction)</code>.</p>
+</div>

@@ -1,0 +1,288 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.listado {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.contadores {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.contadores strong {
+  color: var(--azul-oscuro);
+  font-size: 1rem;
+}
+
+.registro {
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: #fbfdff;
+}
+
+.registro-cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.registro-cabecera h3 {
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+
+.correo {
+  color: #64748b;
+  font-size: 0.75rem;
+  margin-top: 0.1rem;
+  overflow-wrap: anywhere;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.3rem;
+}
+
+.badge {
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 0.22rem 0.55rem;
+  white-space: nowrap;
+}
+
+.prioridad-baja {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.prioridad-media {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.prioridad-alta {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.prioridad-critica {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.estado-pendiente {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.estado-proceso {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.estado-resuelto {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.descripcion {
+  color: #334155;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0.55rem 0;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  color: #64748b;
+  font-size: 0.72rem;
+}
+
+.meta b {
+  color: #475569;
+}
+
+.equipos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+}
+
+.equipo {
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  color: #1e40af;
+  border-radius: 7px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.45rem;
+}
+
+.registro-acciones {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 0.7rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.selector-estado {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.selector-estado select {
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: var(--blanco);
+  color: var(--tinta);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.35rem 0.5rem;
+  outline: none;
+}
+
+.selector-estado select:focus {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.13);
+}
+
+.btn-eliminar {
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fff1f2;
+  color: #b91c1c;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.38rem 0.6rem;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  background: #ffe4e6;
+}
+
+.vacio {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 0.25rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #fbfdff;
+  padding: 2rem 1rem;
+}
+
+.vacio-icono {
+  font-size: 1.8rem;
+}
+
+.vacio h3 {
+  font-size: 0.95rem;
+}
+
+.vacio p {
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.resumen {
+  margin-top: 0.3rem;
+  border-top: 1px solid var(--borde);
+  padding-top: 0.9rem;
+}
+
+.resumen-cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.resumen-cabecera h3 {
+  font-size: 0.95rem;
+}
+
+.btn-resumen {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  width: 100%;
+  border: 1px dashed #93c5fd;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1e40af;
+  padding: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-resumen:hover {
+  background: #dbeafe;
+  border-color: #3b82f6;
+}
+
+.btn-resumen span {
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.btn-resumen small {
+  color: #64748b;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.cargando {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-style: italic;
+  padding: 0.6rem 0;
+}
+
+@media (max-width: 480px) {
+  .registro-cabecera {
+    flex-direction: column;
+  }
+
+  .badges {
+    justify-content: flex-start;
+  }
+
+  .registro-acciones {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .selector-estado {
+    justify-content: space-between;
+  }
+}
