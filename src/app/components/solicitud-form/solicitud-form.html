@@ -1,0 +1,190 @@
+<section class="tarjeta">
+  <div class="tarjeta-cabecera">
+    <div>
+      <p class="etiqueta">Nueva solicitud</p>
+      <h2>Registrar caso de soporte</h2>
+    </div>
+    <span class="chip">Reactivo</span>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+    <fieldset class="bloque">
+      <legend>Datos del solicitante</legend>
+
+      <div class="grid-dos">
+        <label class="campo">
+          <span>Solicitante <b>*</b></span>
+          <input type="text" formControlName="solicitante" placeholder="Nombre y apellido" autocomplete="name" />
+          @if (solicitante.invalid && (solicitante.touched || solicitante.dirty)) {
+            <p class="error">
+              @if (solicitante.hasError('required')) {
+                El solicitante es obligatorio.
+              } @else if (solicitante.hasError('minlength')) {
+                Escriba al menos 3 caracteres.
+              } @else if (solicitante.hasError('soloEspacios')) {
+                No puede estar formado solo por espacios.
+              }
+            </p>
+          }
+        </label>
+
+        <label class="campo">
+          <span>Correo institucional <b>*</b></span>
+          <input type="email" formControlName="correo" placeholder="nombre@unibarranquilla.edu.co" autocomplete="email" />
+          @if (correo.invalid && (correo.touched || correo.dirty)) {
+            <p class="error">
+              @if (correo.hasError('required')) {
+                El correo es obligatorio.
+              } @else if (correo.hasError('email')) {
+                Escriba un correo con formato válido.
+              }
+            </p>
+          }
+        </label>
+      </div>
+
+      <div class="grid-dos">
+        <label class="campo">
+          <span>Categoría <b>*</b></span>
+          <select formControlName="categoria">
+            <option value="" disabled>Seleccione una categoría</option>
+            @for (item of categorias; track item) {
+              <option [value]="item">{{ item }}</option>
+            }
+          </select>
+          @if (categoria.invalid && (categoria.touched || categoria.dirty)) {
+            <p class="error">Seleccione una categoría.</p>
+          }
+        </label>
+
+        <label class="campo">
+          <span>Prioridad <b>*</b></span>
+          <select formControlName="prioridad">
+            @for (item of prioridades; track item) {
+              <option [value]="item">{{ item }}</option>
+            }
+          </select>
+          @if (prioridad.invalid && (prioridad.touched || prioridad.dirty)) {
+            <p class="error">Seleccione la prioridad.</p>
+          }
+        </label>
+      </div>
+
+      <label class="campo">
+        <span>Impacto en el servicio</span>
+        <input type="text" formControlName="impacto" placeholder="Ej.: sin conexión, servicio caído" />
+        @if (impacto.invalid && (impacto.touched || impacto.dirty)) {
+          <p class="error">
+            @if (impacto.hasError('minlength')) {
+              Escriba al menos 5 caracteres.
+            }
+          </p>
+        }
+      </label>
+
+      @if (form.hasError('impactoRequerido') && (prioridad.touched || prioridad.dirty || impacto.touched || impacto.dirty)) {
+        <p class="error error-grupo">
+          Regla de grupo: cuando la prioridad es <strong>Crítica</strong>, el impacto es obligatorio.
+        </p>
+      }
+    </fieldset>
+
+    <fieldset class="bloque">
+      <legend>Descripción del caso</legend>
+
+      <div class="grid-dos">
+        <label class="campo">
+          <span>Fecha de la solicitud <b>*</b></span>
+          <input type="date" formControlName="fecha" />
+          @if (fecha.invalid && (fecha.touched || fecha.dirty)) {
+            <p class="error">Seleccione la fecha.</p>
+          }
+        </label>
+      </div>
+
+      <label class="campo">
+        <span>Descripción <b>*</b></span>
+        <textarea formControlName="descripcion" rows="3" placeholder="Describa el problema con el mayor detalle posible"></textarea>
+        @if (descripcion.invalid && (descripcion.touched || descripcion.dirty)) {
+          <p class="error">
+            @if (descripcion.hasError('required')) {
+              La descripción es obligatoria.
+            } @else if (descripcion.hasError('minlength')) {
+              Escriba al menos 10 caracteres.
+            }
+          </p>
+        }
+      </label>
+    </fieldset>
+
+    <section class="bloque-items">
+      <div class="items-cabecera">
+        <div>
+          <h3>Equipos afectados <b>*</b></h3>
+          <p>Agregue los equipos que presentan la falla.</p>
+        </div>
+        <button type="button" class="btn-secundario" (click)="agregarEquipo()">+ Agregar equipo</button>
+      </div>
+
+      <div formArrayName="equipos">
+        @for (equipo of equipos.controls; track equipo; let i = $index) {
+          <div class="fila-item" [formGroupName]="i">
+            <span class="fila-numero">{{ i + 1 }}</span>
+
+            <label class="campo">
+              <span>Código <b>*</b></span>
+              <input type="text" formControlName="codigo" placeholder="EQ-001" />
+              @if (equipo.controls.codigo.invalid && (equipo.controls.codigo.touched || equipo.controls.codigo.dirty)) {
+                <p class="error">
+                  @if (equipo.controls.codigo.hasError('required')) {
+                    El código es obligatorio.
+                  } @else if (equipo.controls.codigo.hasError('pattern')) {
+                    Use el formato EQ-001.
+                  }
+                </p>
+              }
+            </label>
+
+            <label class="campo">
+              <span>Ubicación <b>*</b></span>
+              <input type="text" formControlName="ubicacion" placeholder="Bloque, piso o sala" />
+              @if (equipo.controls.ubicacion.invalid && (equipo.controls.ubicacion.touched || equipo.controls.ubicacion.dirty)) {
+                <p class="error">
+                  @if (equipo.controls.ubicacion.hasError('required')) {
+                    La ubicación es obligatoria.
+                  } @else if (equipo.controls.ubicacion.hasError('minlength')) {
+                    Escriba al menos 3 caracteres.
+                  } @else if (equipo.controls.ubicacion.hasError('soloEspacios')) {
+                    No puede estar formada solo por espacios.
+                  }
+                </p>
+              }
+            </label>
+
+            <button type="button" class="btn-quitar" (click)="quitarEquipo(i)" title="Quitar este equipo">
+              Quitar
+            </button>
+          </div>
+        } @empty {
+          <p class="sin-items">No hay equipos en la lista. Agregue al menos uno para continuar.</p>
+        }
+
+        @if (equipos.hasError('minimoItems') && (equipos.touched || equipos.dirty)) {
+          <p class="error error-grupo">La solicitud debe incluir al menos un equipo afectado.</p>
+        }
+      </div>
+    </section>
+
+    @if (mensaje()) {
+      <p class="exito">{{ mensaje() }}</p>
+    }
+
+    <div class="acciones">
+      <button type="submit" class="btn-primario" [disabled]="form.invalid">Registrar solicitud</button>
+      <button type="button" class="btn-secundario" (click)="limpiar()">Limpiar</button>
+      <span class="estado-form" [class.listo]="form.valid">
+        {{ form.valid ? 'Formulario listo para enviar' : 'Complete los campos obligatorios' }}
+      </span>
+    </div>
+  </form>
+</section>

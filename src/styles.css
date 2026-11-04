@@ -1,3 +1,351 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+:root {
+  --tinta: #0f172a;
+  --tinta-suave: #475569;
+  --borde: #dbe3ef;
+  --fondo: #eef2f9;
+  --blanco: #ffffff;
+  --azul: #2563eb;
+  --azul-oscuro: #1d4ed8;
+  --cian: #0891b2;
+  --verde: #15803d;
+  --ambar: #b45309;
+  --rojo: #dc2626;
+  --sombra: 0 18px 45px rgba(15, 23, 42, 0.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(37, 99, 235, 0.12), transparent 34rem),
+    radial-gradient(circle at 100% 18%, rgba(8, 145, 178, 0.1), transparent 30rem),
+    var(--fondo);
+  color: var(--tinta);
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.tarjeta {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(219, 227, 239, 0.9);
+  border-radius: 20px;
+  box-shadow: var(--sombra);
+  padding: 1.4rem;
+}
+
+.tarjeta-cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.tarjeta-cabecera h2 {
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.etiqueta {
+  color: var(--azul);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #e8efff;
+  color: var(--azul-oscuro);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+}
+
+.bloque {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.1rem;
+}
+
+.bloque legend {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--tinta);
+  margin-bottom: 0.7rem;
+  padding: 0;
+}
+
+.grid-dos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+  min-width: 0;
+}
+
+.campo > span {
+  color: var(--tinta-suave);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.campo b,
+.bloque-items h3 b {
+  color: var(--rojo);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--tinta);
+  padding: 0.62rem 0.75rem;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 4.6rem;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+  color: #94a3b8;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  background: var(--blanco);
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.13);
+}
+
+.campo input.ng-invalid.ng-touched,
+.campo select.ng-invalid.ng-touched,
+.campo textarea.ng-invalid.ng-touched {
+  border-color: #fca5a5;
+}
+
+.error {
+  color: var(--rojo);
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.error-grupo {
+  border-left: 3px solid var(--rojo);
+  background: #fef2f2;
+  border-radius: 0 8px 8px 0;
+  padding: 0.55rem 0.7rem;
+  margin: 0.2rem 0 0.8rem;
+}
+
+.exito {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: var(--verde);
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 0.65rem 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.bloque-items {
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  background: #fbfdff;
+}
+
+.items-cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.items-cabecera h3 {
+  font-size: 0.88rem;
+}
+
+.items-cabecera p {
+  color: #64748b;
+  font-size: 0.75rem;
+  margin-top: 0.15rem;
+}
+
+.fila-item {
+  display: grid;
+  grid-template-columns: 1.7rem minmax(0, 0.9fr) minmax(0, 1.3fr) auto;
+  align-items: start;
+  gap: 0.55rem;
+  padding: 0.6rem;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--blanco);
+  margin-bottom: 0.55rem;
+}
+
+.fila-numero {
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-top: 1.35rem;
+  border-radius: 50%;
+  background: #e8efff;
+  color: var(--azul-oscuro);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.sin-items {
+  color: #64748b;
+  font-size: 0.8rem;
+  font-style: italic;
+  padding: 0.6rem 0.2rem;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--borde);
+}
+
+.btn-primario,
+.btn-secundario,
+.btn-quitar {
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.62rem 0.95rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primario {
+  border: 0;
+  background: linear-gradient(135deg, var(--azul), var(--cian));
+  color: var(--blanco);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primario:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primario:disabled {
+  background: #cbd5e1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-secundario {
+  border: 1px solid var(--borde);
+  background: var(--blanco);
+  color: var(--tinta);
+}
+
+.btn-secundario:hover {
+  background: #f1f5f9;
+}
+
+.btn-quitar {
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #b91c1c;
+  padding: 0.5rem 0.65rem;
+  margin-top: 1.3rem;
+}
+
+.btn-quitar:hover {
+  background: #ffe4e6;
+}
+
+.estado-form {
+  color: #94a3b8;
+  font-size: 0.74rem;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.estado-form.listo {
+  color: var(--verde);
+}
+
+@media (max-width: 720px) {
+  .grid-dos {
+    grid-template-columns: 1fr;
+  }
+
+  .fila-item {
+    grid-template-columns: 1.7rem minmax(0, 1fr);
+  }
+
+  .fila-item .campo,
+  .fila-item .btn-quitar {
+    grid-column: 2;
+  }
+
+  .btn-quitar {
+    margin-top: 0;
+    justify-self: start;
+  }
+
+  .estado-form {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
