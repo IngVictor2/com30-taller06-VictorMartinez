@@ -1,59 +1,60 @@
-# Taller06
+# COM30 · Taller 06 — Mesa de Ayuda TI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+Aplicación Angular de una sola pantalla para registrar y gestionar solicitudes de soporte técnico. Escenario **E1 – Mesa de ayuda de TI** del Taller 06 (sesiones S05, S06 y S07).
 
-## Development server
+## Escenario
 
-To start a local development server, run:
+Un funcionario de la mesa de ayuda registra solicitudes de soporte con los datos de contacto del solicitante, categoría, prioridad, impacto, fecha, descripción y equipos afectados. Cada solicitud queda en estado **Pendiente** y desde el listado se puede cambiar a **En proceso** o **Resuelto**, o eliminarla. Los datos viven en memoria en un servicio con `signals` y `computed`.
 
-```bash
-ng serve
-```
+## Funcionalidades
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Formulario reactivo con `FormBuilder.nonNullable`: 7 controles de cabecera más un `FormArray` de equipos.
+- Validadores integrados: `required`, `minLength`, `email` y `pattern`.
+- Validador propio de control `sinSoloEspacios` (rechaza cadenas formadas solo por espacios).
+- Validador de grupo `impactoRequerido`: si la prioridad es **Crítica**, el impacto es obligatorio.
+- `FormArray` de equipos con agregar/quitar filas, dos controles validados por fila y validador propio `minimoItems(1)`.
+- Mensajes de error visibles solo con `touched` o `dirty`, con mensaje distinto por tipo de error; el error de grupo se consulta desde el `FormGroup`.
+- Servicio `providedIn: 'root'` con signal privada, versión pública `asReadonly()`, `computed` de total y pendientes, y métodos `agregar`, `cambiarEstado` y `eliminar` que usan `update()` con arreglos nuevos.
+- Listado con `@for` y `track`, bloque `@empty`, cambio de estado por registro y panel de resumen cargado con `@defer (on interaction)`.
+- Sin `NgModule`, sin `*ngIf`, sin rutas y sin `HttpClient`.
 
-## Code scaffolding
+## Cómo ejecutar
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Requisitos: Node.js 20 o superior y npm.
 
 ```bash
-ng build
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Abrir <http://localhost:4200/>.
 
 ```bash
-ng test
+# compilación de producción
+npm run build
+
+# pruebas unitarias
+npm test -- --watch=false
 ```
 
-## Running end-to-end tests
+## Estructura
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```text
+src/app/
+├── app.ts / app.html / app.css        # pantalla principal y contadores
+├── models/solicitud.model.ts          # interfaces Solicitud y EquipoAfectado
+├── services/solicitud.service.ts      # signal privada, computed y CRUD en memoria
+├── validators/solicitud.validators.ts # sinSoloEspacios, impactoRequerido, minimoItems
+└── components/
+    ├── solicitud-form/                # formulario reactivo y FormArray
+    ├── solicitud-list/                # listado, estados y @empty
+    └── resumen-panel/                 # panel cargado con @defer
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Evidencias
 
-## Additional Resources
+Las capturas de la aplicación están en [`docs/evidencias`](docs/evidencias). El informe diligenciado se entrega en PDF junto con este repositorio.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Repositorio
+
+<https://github.com/IngVictor2/com30-taller06-VictorMartinez.git>
