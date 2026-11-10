@@ -1,0 +1,134 @@
+<section class="tarjeta busqueda">
+  <div class="tarjeta-cabecera">
+    <div>
+      <p class="etiqueta">Taller 07 · Búsqueda reactiva</p>
+      <h2>Buscar solicitudes de soporte</h2>
+      <p class="ayuda">
+        La búsqueda compara el texto con <b>solicitante</b> e <b>impacto</b>. No distingue mayúsculas ni tildes.
+      </p>
+    </div>
+    <div class="llamadas" title="Consultas ejecutadas en el servicio">
+      <span>Llamadas al servicio</span>
+      <strong>{{ llamadas() }}</strong>
+    </div>
+  </div>
+
+  <div class="buscador">
+    <label class="campo-busqueda">
+      <span>Texto de búsqueda</span>
+      <input
+        type="search"
+        [formControl]="busqueda"
+        placeholder="Escriba 2 o más caracteres: red, sist, laboratorio…"
+        autocomplete="off"
+      />
+    </label>
+    <button type="button" class="btn-secundario" (click)="limpiar()">Limpiar</button>
+  </div>
+
+  <div class="filtros" role="group" aria-label="Filtrar resultados por estado">
+    @for (estado of estados; track estado) {
+      <button
+        type="button"
+        class="filtro"
+        [class.activo]="filtro() === estado"
+        (click)="cambiarFiltro(estado)"
+      >
+        {{ estado }}
+        <span>{{ contarEstado(estado) }}</span>
+      </button>
+    }
+  </div>
+
+  <div class="estado-busqueda" aria-live="polite">
+    @if (texto().length < 2) {
+      <p class="aviso minimo">Escriba al menos 2 caracteres para consultar.</p>
+    } @else if (!haBuscado()) {
+      <p class="aviso minimo">Preparando búsqueda…</p>
+    } @else if (buscando()) {
+      <p class="aviso buscando"><span class="punto"></span> Buscando…</p>
+    } @else if (totalEncontrados() === 0) {
+      <p class="aviso sin-resultados">Sin coincidencias para «{{ texto() }}».</p>
+    } @else {
+      <p class="aviso resumen-texto">
+        <strong>{{ totalEncontrados() }}</strong> coincidencias · mostrando
+        <strong>{{ totalVisibles() }}</strong>
+      </p>
+    }
+  </div>
+
+  @if (texto().length >= 2 && !buscando() && haBuscado()) {
+    <div class="tabla-envoltura">
+      <table class="tabla-resultados">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Solicitante</th>
+            <th>Impacto</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (solicitud of visibles(); track solicitud.id) {
+            <tr>
+              <td class="codigo">R{{ solicitud.id.toString().padStart(2, '0') }}</td>
+              <td>{{ solicitud.solicitante }}</td>
+              <td>{{ solicitud.impacto }}</td>
+              <td>
+                <span class="badge {{ claseEstado(solicitud.estado) }}">{{ solicitud.estado }}</span>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="vacio-tabla">
+                Sin coincidencias para el filtro seleccionado.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <div class="resumen-busqueda">
+    <div class="dato-resumen">
+      <span>{{ totalEncontrados() }}</span>
+      <small>Encontradas</small>
+    </div>
+    <div class="dato-resumen pendiente">
+      <span>{{ conteoEstados().Pendiente }}</span>
+      <small>Pendientes</small>
+    </div>
+    <div class="dato-resumen proceso">
+      <span>{{ conteoEstados()['En proceso'] }}</span>
+      <small>En proceso</small>
+    </div>
+    <div class="dato-resumen resuelto">
+      <span>{{ conteoEstados().Resuelto }}</span>
+      <small>Resueltas</small>
+    </div>
+  </div>
+
+  <div class="historial">
+    <div class="historial-cabecera">
+      <div>
+        <p class="etiqueta">Historial</p>
+        <h3>Últimas 5 consultas</h3>
+      </div>
+      <span class="chip">La más reciente primero</span>
+    </div>
+
+    @if (historial().length === 0) {
+      <p class="historial-vacio">Aún no hay consultas registradas.</p>
+    } @else {
+      <ol class="historial-lista">
+        @for (consulta of historial(); track $index) {
+          <li>
+            <span class="historial-texto">{{ consulta }}</span>
+            <small>consulta</small>
+          </li>
+        }
+      </ol>
+    }
+  </div>
+</section>
