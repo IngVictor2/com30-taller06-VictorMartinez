@@ -88,9 +88,7 @@ export class BusquedaSolicitudes {
     // Se suscribe al texto que ya pasó por trim, debounce y distinct.
     this.consultas$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((texto) => {
       if (texto.length >= 2) {
-        this.historial.update((historial) =>
-          [texto, ...historial.filter((consulta) => consulta !== texto)].slice(0, 5),
-        );
+        this.historial.update((historial) => [texto, ...historial].slice(0, 5));
       }
     });
   }
