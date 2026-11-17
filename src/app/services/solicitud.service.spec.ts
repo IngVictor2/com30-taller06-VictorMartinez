@@ -98,10 +98,10 @@ describe('SolicitudService', () => {
     expect(servicio.llamadas()).toBe(2);
   });
 
-  it('agrega un registro en estado Pendiente con un arreglo nuevo', () => {
+  it('agrega un registro en estado Pendiente, con código R13 y arreglo nuevo', () => {
     const antes = servicio.solicitudes();
 
-    servicio.agregar({
+    const nueva = servicio.agregar({
       solicitante: 'Prueba',
       correo: 'prueba@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -116,8 +116,15 @@ describe('SolicitudService', () => {
 
     expect(despues).not.toBe(antes);
     expect(despues.length).toBe(antes.length + 1);
-    expect(despues.at(-1)?.id).toBe(13);
-    expect(despues.at(-1)?.estado).toBe('Pendiente');
+    expect(nueva.id).toBe(13);
+    expect(nueva.codigo).toBe('R13');
+    expect(nueva.estado).toBe('Pendiente');
+    expect(despues.at(-1)).toBe(nueva);
+  });
+
+  it('la semilla usa códigos R01 a R12', () => {
+    expect(servicio.solicitudes()[0].codigo).toBe('R01');
+    expect(servicio.solicitudes().at(-1)?.codigo).toBe('R12');
   });
 
   it('cambia el estado de un registro', () => {
