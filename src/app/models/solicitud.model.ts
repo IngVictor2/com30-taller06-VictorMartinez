@@ -13,6 +13,7 @@ export interface EquipoAfectado {
 /** Modelo de datos que guarda el servicio. No es el modelo del formulario. */
 export interface Solicitud {
   id: number;
+  codigo: string;
   solicitante: string;
   correo: string;
   categoria: Categoria;

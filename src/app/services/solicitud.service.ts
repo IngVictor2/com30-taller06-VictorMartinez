@@ -2,11 +2,12 @@ import { Injectable, computed, signal } from '@angular/core';
 import { Observable, delay, of } from 'rxjs';
 import { EstadoSolicitud, Solicitud } from '../models/solicitud.model';
 
-export type NuevaSolicitud = Omit<Solicitud, 'id' | 'estado'>;
+export type NuevaSolicitud = Omit<Solicitud, 'id' | 'codigo' | 'estado'>;
 
 /**
- * Servicio del Taller 06 ampliado para el Taller 07.
+ * Servicio del Taller 06 ampliado para los talleres 07 y 08.
  * La búsqueda compara el texto normalizado con los campos `solicitante` e `impacto`.
+ * Cada registro recibe un código legible (R01, R02…) que se usa en la ruta de detalle.
  */
 @Injectable({ providedIn: 'root' })
 export class SolicitudService {
@@ -14,6 +15,7 @@ export class SolicitudService {
   private readonly solicitudesState = signal<Solicitud[]>([
     {
       id: 1,
+      codigo: 'R01',
       solicitante: 'Ana Pérez',
       correo: 'ana.perez@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -26,6 +28,7 @@ export class SolicitudService {
     },
     {
       id: 2,
+      codigo: 'R02',
       solicitante: 'Carlos Rojas',
       correo: 'carlos.rojas@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -38,6 +41,7 @@ export class SolicitudService {
     },
     {
       id: 3,
+      codigo: 'R03',
       solicitante: 'María Gómez',
       correo: 'maria.gomez@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -50,6 +54,7 @@ export class SolicitudService {
     },
     {
       id: 4,
+      codigo: 'R04',
       solicitante: 'Luis Torres',
       correo: 'luis.torres@unibarranquilla.edu.co',
       categoria: 'Hardware',
@@ -62,6 +67,7 @@ export class SolicitudService {
     },
     {
       id: 5,
+      codigo: 'R05',
       solicitante: 'Diana Ruiz',
       correo: 'diana.ruiz@unibarranquilla.edu.co',
       categoria: 'Software',
@@ -74,6 +80,7 @@ export class SolicitudService {
     },
     {
       id: 6,
+      codigo: 'R06',
       solicitante: 'Jorge Díaz',
       correo: 'jorge.diaz@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -86,6 +93,7 @@ export class SolicitudService {
     },
     {
       id: 7,
+      codigo: 'R07',
       solicitante: 'Laura Méndez',
       correo: 'laura.mendez@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -98,6 +106,7 @@ export class SolicitudService {
     },
     {
       id: 8,
+      codigo: 'R08',
       solicitante: 'Andrés Silva',
       correo: 'andres.silva@unibarranquilla.edu.co',
       categoria: 'Software',
@@ -110,6 +119,7 @@ export class SolicitudService {
     },
     {
       id: 9,
+      codigo: 'R09',
       solicitante: 'Paula Cárdenas',
       correo: 'paula.cardenas@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -122,6 +132,7 @@ export class SolicitudService {
     },
     {
       id: 10,
+      codigo: 'R10',
       solicitante: 'Sergio Navarro',
       correo: 'sergio.navarro@unibarranquilla.edu.co',
       categoria: 'Hardware',
@@ -134,6 +145,7 @@ export class SolicitudService {
     },
     {
       id: 11,
+      codigo: 'R11',
       solicitante: 'Camila Herrera',
       correo: 'camila.herrera@unibarranquilla.edu.co',
       categoria: 'Software',
@@ -146,6 +158,7 @@ export class SolicitudService {
     },
     {
       id: 12,
+      codigo: 'R12',
       solicitante: 'Felipe Ortiz',
       correo: 'felipe.ortiz@unibarranquilla.edu.co',
       categoria: 'Red',
@@ -201,14 +214,17 @@ export class SolicitudService {
   }
 
   /** Agrega un registro creando un arreglo nuevo (sin push ni splice). */
-  agregar(datos: NuevaSolicitud): void {
+  agregar(datos: NuevaSolicitud): Solicitud {
+    const id = this.nextId++;
     const nueva: Solicitud = {
       ...datos,
-      id: this.nextId++,
+      id,
+      codigo: `R${String(id).padStart(2, '0')}`,
       estado: 'Pendiente',
     };
 
     this.solicitudesState.update((solicitudes) => [...solicitudes, nueva]);
+    return nueva;
   }
 
   /** Cambia el estado de un registro creando un arreglo nuevo. */
@@ -220,7 +236,9 @@ export class SolicitudService {
 
   /** Elimina un registro creando un arreglo nuevo (sin splice). */
   eliminar(id: number): void {
-    this.solicitudesState.update((solicitudes) => solicitudes.filter((solicitud) => solicitud.id !== id));
+    this.solicitudesState.update((solicitudes) =>
+      solicitudes.filter((solicitud) => solicitud.id !== id),
+    );
   }
 
   /** Minúsculas y sin tildes para comparar de forma sencilla. */

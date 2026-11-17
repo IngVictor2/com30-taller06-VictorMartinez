@@ -1,14 +1,14 @@
 <div class="shell">
   <header class="cabecera">
     <div class="cabecera-contenido">
-      <div class="marca">
+      <a class="marca" routerLink="/" aria-label="Ir al inicio de la Mesa de Ayuda TI">
         <div class="logo" aria-hidden="true">TI</div>
         <div>
-          <p class="eyebrow">COM30 · Taller 07 · 2026-III</p>
+          <p class="eyebrow">COM30 · Taller 08 · 2026-III</p>
           <h1>Mesa de Ayuda TI</h1>
-          <p class="subtitulo">Registro, búsqueda y gestión de solicitudes de soporte</p>
+          <p class="subtitulo">Registro, consulta y seguimiento de solicitudes de soporte</p>
         </div>
-      </div>
+      </a>
 
       <div class="stats">
         <div class="stat">
@@ -21,16 +21,34 @@
         </div>
       </div>
     </div>
+
+    <nav class="menu" aria-label="Navegación principal">
+      <a
+        routerLink="/"
+        routerLinkActive="activo"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+      >
+        Inicio
+      </a>
+      <a routerLink="/solicitudes" routerLinkActive="activo" ariaCurrentWhenActive="page">
+        Solicitudes
+      </a>
+      <a routerLink="/solicitudes/nueva" routerLinkActive="activo" ariaCurrentWhenActive="page">
+        Nueva solicitud
+      </a>
+      <a routerLink="/estadisticas" routerLinkActive="activo" ariaCurrentWhenActive="page">
+        Estadísticas
+      </a>
+    </nav>
   </header>
 
   <main class="contenido">
-    <app-busqueda-solicitudes />
-    <app-solicitud-form />
-    <app-solicitud-list />
+    <router-outlet />
   </main>
 
   <footer class="pie">
-    <span>Escenario E1 · Búsqueda reactiva con Angular</span>
-    <span>Datos en memoria · signals + computed</span>
+    <span>Escenario E1 · Mesa de ayuda de TI</span>
+    <span>Datos en memoria · signals + rutas con component input binding</span>
   </footer>
 </div>

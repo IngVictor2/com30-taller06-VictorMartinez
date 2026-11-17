@@ -1,12 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { BusquedaSolicitudes } from './components/busqueda-solicitudes/busqueda-solicitudes';
-import { SolicitudForm } from './components/solicitud-form/solicitud-form';
-import { SolicitudList } from './components/solicitud-list/solicitud-list';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SolicitudService } from './services/solicitud.service';
 
 @Component({
   selector: 'app-root',
-  imports: [BusquedaSolicitudes, SolicitudForm, SolicitudList],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
