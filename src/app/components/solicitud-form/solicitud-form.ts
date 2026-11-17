@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -7,9 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { Categoria, Prioridad } from '../../models/solicitud.model';
 import { SolicitudService } from '../../services/solicitud.service';
-import { impactoRequerido, minimoItems, sinSoloEspacios } from '../../validators/solicitud.validators';
+import {
+  impactoRequerido,
+  minimoItems,
+  sinSoloEspacios,
+} from '../../validators/solicitud.validators';
 
 type EquipoForm = FormGroup<{
   codigo: FormControl<string>;
@@ -18,17 +23,17 @@ type EquipoForm = FormGroup<{
 
 @Component({
   selector: 'app-solicitud-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './solicitud-form.html',
   styleUrl: './solicitud-form.css',
 })
 export class SolicitudForm {
   private readonly fb = inject(FormBuilder);
   private readonly servicio = inject(SolicitudService);
+  private readonly router = inject(Router);
 
   readonly categorias: Categoria[] = ['Hardware', 'Software', 'Red', 'Acceso', 'Otro'];
   readonly prioridades: Prioridad[] = ['Baja', 'Media', 'Alta', 'Crítica'];
-  readonly mensaje = signal('');
 
   // Modelo del formulario: FormBuilder nonNullable, 7 controles de cabecera + FormArray.
   readonly form = this.fb.nonNullable.group(
@@ -101,7 +106,7 @@ export class SolicitudForm {
     // getRawValue() entrega todos los valores del formulario, incluida la lista de ítems.
     const valor = this.form.getRawValue();
 
-    this.servicio.agregar({
+    const nueva = this.servicio.agregar({
       solicitante: valor.solicitante.trim(),
       correo: valor.correo.trim(),
       categoria: valor.categoria as Categoria,
@@ -118,14 +123,15 @@ export class SolicitudForm {
     this.form.reset();
     this.equipos.clear();
     this.agregarEquipo();
-    this.mensaje.set('Solicitud registrada correctamente. Ya aparece en el listado.');
+
+    // Navegación programática al detalle del registro recién creado.
+    void this.router.navigate(['/solicitudes', nueva.codigo]);
   }
 
   limpiar(): void {
     this.form.reset();
     this.equipos.clear();
     this.agregarEquipo();
-    this.mensaje.set('');
   }
 
   private crearEquipo(): EquipoForm {

@@ -1,3 +1,5 @@
+<a class="volver-form" routerLink="/solicitudes">← Volver al listado</a>
+
 <section class="tarjeta">
   <div class="tarjeta-cabecera">
     <div>
@@ -14,7 +16,12 @@
       <div class="grid-dos">
         <label class="campo">
           <span>Solicitante <b>*</b></span>
-          <input type="text" formControlName="solicitante" placeholder="Nombre y apellido" autocomplete="name" />
+          <input
+            type="text"
+            formControlName="solicitante"
+            placeholder="Nombre y apellido"
+            autocomplete="name"
+          />
           @if (solicitante.invalid && (solicitante.touched || solicitante.dirty)) {
             <p class="error">
               @if (solicitante.hasError('required')) {
@@ -30,7 +37,12 @@
 
         <label class="campo">
           <span>Correo institucional <b>*</b></span>
-          <input type="email" formControlName="correo" placeholder="nombre@unibarranquilla.edu.co" autocomplete="email" />
+          <input
+            type="email"
+            formControlName="correo"
+            placeholder="nombre@unibarranquilla.edu.co"
+            autocomplete="email"
+          />
           @if (correo.invalid && (correo.touched || correo.dirty)) {
             <p class="error">
               @if (correo.hasError('required')) {
@@ -72,7 +84,11 @@
 
       <label class="campo">
         <span>Impacto en el servicio</span>
-        <input type="text" formControlName="impacto" placeholder="Ej.: sin conexión, servicio caído" />
+        <input
+          type="text"
+          formControlName="impacto"
+          placeholder="Ej.: sin conexión, servicio caído"
+        />
         @if (impacto.invalid && (impacto.touched || impacto.dirty)) {
           <p class="error">
             @if (impacto.hasError('minlength')) {
@@ -82,9 +98,13 @@
         }
       </label>
 
-      @if (form.hasError('impactoRequerido') && (prioridad.touched || prioridad.dirty || impacto.touched || impacto.dirty)) {
+      @if (
+        form.hasError('impactoRequerido') &&
+        (prioridad.touched || prioridad.dirty || impacto.touched || impacto.dirty)
+      ) {
         <p class="error error-grupo">
-          Regla de grupo: cuando la prioridad es <strong>Crítica</strong>, el impacto es obligatorio.
+          Regla de grupo: cuando la prioridad es <strong>Crítica</strong>, el impacto es
+          obligatorio.
         </p>
       }
     </fieldset>
@@ -104,7 +124,11 @@
 
       <label class="campo">
         <span>Descripción <b>*</b></span>
-        <textarea formControlName="descripcion" rows="3" placeholder="Describa el problema con el mayor detalle posible"></textarea>
+        <textarea
+          formControlName="descripcion"
+          rows="3"
+          placeholder="Describa el problema con el mayor detalle posible"
+        ></textarea>
         @if (descripcion.invalid && (descripcion.touched || descripcion.dirty)) {
           <p class="error">
             @if (descripcion.hasError('required')) {
@@ -123,7 +147,9 @@
           <h3>Equipos afectados <b>*</b></h3>
           <p>Agregue los equipos que presentan la falla.</p>
         </div>
-        <button type="button" class="btn-secundario" (click)="agregarEquipo()">+ Agregar equipo</button>
+        <button type="button" class="btn-secundario" (click)="agregarEquipo()">
+          + Agregar equipo
+        </button>
       </div>
 
       <div formArrayName="equipos">
@@ -134,7 +160,10 @@
             <label class="campo">
               <span>Código <b>*</b></span>
               <input type="text" formControlName="codigo" placeholder="EQ-001" />
-              @if (equipo.controls.codigo.invalid && (equipo.controls.codigo.touched || equipo.controls.codigo.dirty)) {
+              @if (
+                equipo.controls.codigo.invalid &&
+                (equipo.controls.codigo.touched || equipo.controls.codigo.dirty)
+              ) {
                 <p class="error">
                   @if (equipo.controls.codigo.hasError('required')) {
                     El código es obligatorio.
@@ -148,7 +177,10 @@
             <label class="campo">
               <span>Ubicación <b>*</b></span>
               <input type="text" formControlName="ubicacion" placeholder="Bloque, piso o sala" />
-              @if (equipo.controls.ubicacion.invalid && (equipo.controls.ubicacion.touched || equipo.controls.ubicacion.dirty)) {
+              @if (
+                equipo.controls.ubicacion.invalid &&
+                (equipo.controls.ubicacion.touched || equipo.controls.ubicacion.dirty)
+              ) {
                 <p class="error">
                   @if (equipo.controls.ubicacion.hasError('required')) {
                     La ubicación es obligatoria.
@@ -161,7 +193,12 @@
               }
             </label>
 
-            <button type="button" class="btn-quitar" (click)="quitarEquipo(i)" title="Quitar este equipo">
+            <button
+              type="button"
+              class="btn-quitar"
+              (click)="quitarEquipo(i)"
+              title="Quitar este equipo"
+            >
               Quitar
             </button>
           </div>
@@ -175,15 +212,17 @@
       </div>
     </section>
 
-    @if (mensaje()) {
-      <p class="exito">{{ mensaje() }}</p>
-    }
-
     <div class="acciones">
-      <button type="submit" class="btn-primario" [disabled]="form.invalid">Registrar solicitud</button>
+      <button type="submit" class="btn-primario" [disabled]="form.invalid">
+        Registrar solicitud
+      </button>
       <button type="button" class="btn-secundario" (click)="limpiar()">Limpiar</button>
       <span class="estado-form" [class.listo]="form.valid">
-        {{ form.valid ? 'Formulario listo para enviar' : 'Complete los campos obligatorios' }}
+        {{
+          form.valid
+            ? 'Al registrar irá al detalle del nuevo registro'
+            : 'Complete los campos obligatorios'
+        }}
       </span>
     </div>
   </form>

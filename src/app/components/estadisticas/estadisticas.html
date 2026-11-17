@@ -1,0 +1,63 @@
+<section class="estadisticas">
+  <article class="tarjeta">
+    <div class="tarjeta-cabecera">
+      <div>
+        <p class="etiqueta">Vista de estadísticas</p>
+        <h2>Resumen de la mesa de ayuda</h2>
+        <p class="url-vista">URL de esta vista: <code>/estadisticas</code></p>
+      </div>
+      <span class="chip">loadComponent</span>
+    </div>
+
+    <p class="nota-lazy">
+      Esta vista se carga de forma diferida con <code>loadComponent</code>. En F12 → Red aparece un
+      chunk <code>.js</code> nuevo la primera vez que se abre; al volver a entrar ya está en
+      memoria.
+    </p>
+
+    <app-resumen-panel />
+
+    <div class="grupos">
+      <section class="grupo">
+        <h3>Por estado</h3>
+        <ul>
+          @for (estado of estados; track estado) {
+            <li>
+              <span>{{ estado }}</span>
+              <strong>{{ porEstado()[estado] }}</strong>
+            </li>
+          }
+        </ul>
+      </section>
+
+      <section class="grupo">
+        <h3>Por categoría</h3>
+        <ul>
+          @for (categoria of categorias; track categoria) {
+            <li>
+              <span>{{ categoria }}</span>
+              <strong>{{ porCategoria()[categoria] }}</strong>
+            </li>
+          }
+        </ul>
+      </section>
+
+      <section class="grupo">
+        <h3>Por prioridad</h3>
+        <ul>
+          @for (prioridad of prioridades; track prioridad) {
+            <li>
+              <span>{{ prioridad }}</span>
+              <strong>{{ porPrioridad()[prioridad] }}</strong>
+            </li>
+          }
+        </ul>
+      </section>
+    </div>
+
+    <div class="acciones-estadisticas">
+      <a class="btn-primario" routerLink="/solicitudes">Volver al listado</a>
+      <a class="btn-secundario" routerLink="/solicitudes/nueva">Registrar solicitud</a>
+    </div>
+  </article>
+</section>

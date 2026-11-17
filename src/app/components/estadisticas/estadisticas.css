@@ -1,0 +1,107 @@
+:host {
+  display: block;
+}
+
+.estadisticas {
+  display: block;
+}
+
+.url-vista {
+  color: #64748b;
+  font-size: 0.74rem;
+  margin-top: 0.35rem;
+}
+
+.url-vista code,
+.nota-lazy code {
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.12rem 0.35rem;
+}
+
+.nota-lazy {
+  border-left: 3px solid #38bdf8;
+  border-radius: 0 10px 10px 0;
+  background: #f0f9ff;
+  color: #0c4a6e;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  padding: 0.7rem 0.85rem;
+  margin-bottom: 0.9rem;
+}
+
+.grupos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.grupo {
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  background: #fbfdff;
+  padding: 0.8rem;
+}
+
+.grupo h3 {
+  color: var(--tinta-suave);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.grupo ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.grupo li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  border-bottom: 1px solid #eef2f7;
+  color: #475569;
+  font-size: 0.8rem;
+  padding-bottom: 0.3rem;
+}
+
+.grupo li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.grupo strong {
+  color: var(--azul-oscuro);
+  font-size: 0.9rem;
+}
+
+.acciones-estadisticas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  border-top: 1px solid var(--borde);
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+}
+
+.acciones-estadisticas a {
+  text-decoration: none;
+}
+
+@media (max-width: 820px) {
+  .grupos {
+    grid-template-columns: 1fr;
+  }
+}

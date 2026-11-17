@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.no-encontrada {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  border: 1px solid #fecaca;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(248, 113, 113, 0.18), transparent 16rem),
+    linear-gradient(135deg, #fff7f7, #ffffff);
+  box-shadow: var(--sombra);
+  padding: 2rem;
+}
+
+.codigo-error {
+  color: #b91c1c;
+  font-size: clamp(3.4rem, 10vw, 5.6rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.no-encontrada h2 {
+  color: var(--tinta);
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+}
+
+.direccion {
+  color: #475569;
+  font-size: 0.88rem;
+}
+
+.direccion code {
+  border: 1px solid #fecaca;
+  border-radius: 7px;
+  background: #fff1f2;
+  color: #b91c1c;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  overflow-wrap: anywhere;
+}
+
+.explicacion {
+  color: #64748b;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  max-width: 60ch;
+}
+
+.no-encontrada .btn-primario {
+  margin-top: 0.45rem;
+  text-decoration: none;
+}
