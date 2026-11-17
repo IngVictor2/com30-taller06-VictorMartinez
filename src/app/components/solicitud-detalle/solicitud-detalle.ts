@@ -13,12 +13,10 @@ export class SolicitudDetalle {
   private readonly servicio = inject(SolicitudService);
   private readonly router = inject(Router);
 
-  /** El parámetro :id de la ruta llega a este input con el mismo nombre. */
   readonly id = input.required<string>();
 
   readonly estados: EstadoSolicitud[] = ['Pendiente', 'En proceso', 'Resuelto'];
 
-  /** Se recalcula si cambia el parámetro o si el servicio modifica la lista. */
   readonly solicitud = computed(() =>
     this.servicio.solicitudes().find((registro) => registro.codigo === this.id()),
   );

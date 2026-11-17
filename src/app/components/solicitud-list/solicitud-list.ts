@@ -15,7 +15,6 @@ type FiltroEstado = 'Todos' | EstadoSolicitud;
 export class SolicitudList {
   private readonly servicio = inject(SolicitudService);
 
-  /** Llega desde ?estado=... gracias a withComponentInputBinding(). */
   readonly estado = input<string>();
 
   readonly solicitudes = this.servicio.solicitudes;
@@ -62,7 +61,6 @@ export class SolicitudList {
     return estado === 'Todos' ? this.total() : this.conteos()[estado];
   }
 
-  /** Sin estado se navega a la misma ruta sin parámetros de consulta. */
   queryParams(estado: FiltroEstado): Record<string, string> {
     return estado === 'Todos' ? {} : { estado };
   }

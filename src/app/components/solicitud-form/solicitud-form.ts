@@ -35,7 +35,6 @@ export class SolicitudForm {
   readonly categorias: Categoria[] = ['Hardware', 'Software', 'Red', 'Acceso', 'Otro'];
   readonly prioridades: Prioridad[] = ['Baja', 'Media', 'Alta', 'Crítica'];
 
-  // Modelo del formulario: FormBuilder nonNullable, 7 controles de cabecera + FormArray.
   readonly form = this.fb.nonNullable.group(
     {
       solicitante: ['', [Validators.required, Validators.minLength(3), sinSoloEspacios]],
@@ -92,7 +91,6 @@ export class SolicitudForm {
 
   quitarEquipo(indice: number): void {
     this.equipos.removeAt(indice);
-    // Al quitar la última fila se muestra de inmediato el error del mínimo.
     this.equipos.markAsTouched();
     this.equipos.markAsDirty();
   }
@@ -103,7 +101,6 @@ export class SolicitudForm {
       return;
     }
 
-    // getRawValue() entrega todos los valores del formulario, incluida la lista de ítems.
     const valor = this.form.getRawValue();
 
     const nueva = this.servicio.agregar({
@@ -124,7 +121,6 @@ export class SolicitudForm {
     this.equipos.clear();
     this.agregarEquipo();
 
-    // Navegación programática al detalle del registro recién creado.
     void this.router.navigate(['/solicitudes', nueva.codigo]);
   }
 

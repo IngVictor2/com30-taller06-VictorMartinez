@@ -33,16 +33,11 @@ export class BusquedaSolicitudes {
   readonly buscando = signal(false);
   readonly haBuscado = signal(false);
 
-  /** Texto recortado visible; se actualiza al instante para los mensajes. */
   readonly texto = toSignal(
     this.busqueda.valueChanges.pipe(map((valor) => valor.trim())),
     { initialValue: '' },
   );
 
-  /**
-   * Tubería común: map(trim) -> debounceTime(300) -> distinctUntilChanged.
-   * Se comparte para que el historial y el resultado no dupliquen la consulta.
-   */
   private readonly consultas$ = this.busqueda.valueChanges.pipe(
     map((valor) => valor.trim()),
     debounceTime(300),
@@ -50,13 +45,11 @@ export class BusquedaSolicitudes {
     shareReplay({ bufferSize: 1, refCount: true }),
   );
 
-  /** Resultado de la última consulta, expuesto como signal con valor inicial. */
   readonly registros = toSignal(
     this.consultas$.pipe(switchMap((texto) => this.consultar(texto))),
     { initialValue: [] as Solicitud[] },
   );
 
-  /** Filtro local por estado: no dispara consultas al servicio. */
   readonly visibles = computed(() => {
     const filtro = this.filtro();
     const registros = this.registros();
@@ -66,7 +59,6 @@ export class BusquedaSolicitudes {
   readonly totalEncontrados = computed(() => this.registros().length);
   readonly totalVisibles = computed(() => this.visibles().length);
 
-  /** Conteo por estado de los registros encontrados. */
   readonly conteoEstados = computed(() => {
     const conteo: Record<EstadoSolicitud, number> = {
       Pendiente: 0,
@@ -84,8 +76,6 @@ export class BusquedaSolicitudes {
   readonly llamadas = this.servicio.llamadas;
 
   constructor() {
-    // Historial de las 5 últimas consultas, la más reciente primero.
-    // Se suscribe al texto que ya pasó por trim, debounce y distinct.
     this.consultas$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((texto) => {
       if (texto.length >= 2) {
         this.historial.update((historial) => [texto, ...historial].slice(0, 5));

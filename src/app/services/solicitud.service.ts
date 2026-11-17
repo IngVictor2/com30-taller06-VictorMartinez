@@ -4,14 +4,8 @@ import { EstadoSolicitud, Solicitud } from '../models/solicitud.model';
 
 export type NuevaSolicitud = Omit<Solicitud, 'id' | 'codigo' | 'estado'>;
 
-/**
- * Servicio del Taller 06 ampliado para los talleres 07 y 08.
- * La búsqueda compara el texto normalizado con los campos `solicitante` e `impacto`.
- * Cada registro recibe un código legible (R01, R02…) que se usa en la ruta de detalle.
- */
 @Injectable({ providedIn: 'root' })
 export class SolicitudService {
-  // La signal es privada: los componentes solo pueden leerla mediante asReadonly().
   private readonly solicitudesState = signal<Solicitud[]>([
     {
       id: 1,
@@ -173,13 +167,10 @@ export class SolicitudService {
 
   private nextId = 13;
 
-  /** Signal privada del contador de consultas; se expone como solo lectura. */
   private readonly llamadasState = signal(0);
 
-  /** Versión pública de solo lectura de la signal. */
   readonly solicitudes = this.solicitudesState.asReadonly();
 
-  /** Número de veces que se ha ejecutado buscar(). */
   readonly llamadas = this.llamadasState.asReadonly();
 
   readonly total = computed(() => this.solicitudesState().length);
@@ -188,14 +179,9 @@ export class SolicitudService {
     () => this.solicitudesState().filter((solicitud) => solicitud.estado === 'Pendiente').length,
   );
 
-  /**
-   * Busca el texto recortado en `solicitante` e `impacto`.
-   * No distingue mayúsculas ni tildes. Aplica el retardo de la condición 4.
-   */
   buscar(texto: string): Observable<Solicitud[]> {
     const termino = this.normalizar(texto.trim());
 
-    // El componente ya evita consultar con menos de 2 caracteres; se refuerza aquí.
     if (termino.length < 2) {
       return of([]);
     }
@@ -213,7 +199,6 @@ export class SolicitudService {
     return of(resultado).pipe(delay(retardo));
   }
 
-  /** Agrega un registro creando un arreglo nuevo (sin push ni splice). */
   agregar(datos: NuevaSolicitud): Solicitud {
     const id = this.nextId++;
     const nueva: Solicitud = {
@@ -227,21 +212,18 @@ export class SolicitudService {
     return nueva;
   }
 
-  /** Cambia el estado de un registro creando un arreglo nuevo. */
   cambiarEstado(id: number, estado: EstadoSolicitud): void {
     this.solicitudesState.update((solicitudes) =>
       solicitudes.map((solicitud) => (solicitud.id === id ? { ...solicitud, estado } : solicitud)),
     );
   }
 
-  /** Elimina un registro creando un arreglo nuevo (sin splice). */
   eliminar(id: number): void {
     this.solicitudesState.update((solicitudes) =>
       solicitudes.filter((solicitud) => solicitud.id !== id),
     );
   }
 
-  /** Minúsculas y sin tildes para comparar de forma sencilla. */
   private normalizar(texto: string): string {
     return texto
       .normalize('NFD')

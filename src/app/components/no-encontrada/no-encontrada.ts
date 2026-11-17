@@ -10,6 +10,5 @@ import { Router, RouterLink } from '@angular/router';
 export class NoEncontrada {
   private readonly router = inject(Router);
 
-  /** Dirección que ninguna ruta atendió; se muestra tal como se escribió. */
   readonly direccion = this.router.url;
 }
