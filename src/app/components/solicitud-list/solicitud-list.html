@@ -3,18 +3,52 @@
     <div>
       <p class="etiqueta">Bandeja de entrada</p>
       <h2>Solicitudes registradas</h2>
+      <p class="ayuda">
+        El filtro vive en la URL: puede recargar la página o compartir el enlace y se conserva.
+      </p>
     </div>
     <div class="contadores">
-      <span><strong>{{ total() }}</strong> total</span>
-      <span><strong>{{ pendientes() }}</strong> pendientes</span>
+      <span
+        ><strong>{{ total() }}</strong> total</span
+      >
+      <span
+        ><strong>{{ pendientes() }}</strong> pendientes</span
+      >
     </div>
   </div>
 
-  @for (solicitud of solicitudes(); track solicitud.id) {
+  <div class="barra-filtros">
+    <div class="filtros" role="group" aria-label="Filtrar solicitudes por estado">
+      @for (estado of estados; track estado) {
+        <a
+          class="filtro"
+          routerLink="."
+          [queryParams]="queryParams(estado)"
+          [class.activo]="filtroActual() === estado"
+        >
+          {{ estado }}
+          <span>{{ contar(estado) }}</span>
+        </a>
+      }
+    </div>
+
+    <a class="btn-primario btn-nueva" routerLink="/solicitudes/nueva">+ Nueva solicitud</a>
+  </div>
+
+  <p class="resultado-filtro" aria-live="polite">
+    Mostrando <strong>{{ visibles().length }}</strong> de <strong>{{ total() }}</strong> solicitudes
+    @if (filtroActual() !== 'Todos') {
+      con estado <strong>{{ filtroActual() }}</strong>
+    }
+  </p>
+
+  @for (solicitud of visibles(); track solicitud.id) {
     <article class="registro">
       <div class="registro-cabecera">
         <div>
-          <h3>{{ solicitud.solicitante }}</h3>
+          <a class="codigo-enlace" [routerLink]="['/solicitudes', solicitud.codigo]">
+            {{ solicitud.codigo }} · {{ solicitud.solicitante }}
+          </a>
           <p class="correo">{{ solicitud.correo }}</p>
         </div>
         <div class="badges">
@@ -38,43 +72,39 @@
       </div>
 
       <div class="registro-acciones">
+        <a class="btn-detalle" [routerLink]="['/solicitudes', solicitud.codigo]">Ver detalle</a>
+
         <label class="selector-estado">
           <span>Cambiar estado</span>
           <select (change)="cambiarEstado(solicitud.id, $event)">
-            @for (estado of estados; track estado) {
-              <option [value]="estado" [selected]="estado === solicitud.estado">{{ estado }}</option>
+            @for (estado of estadosSolicitud; track estado) {
+              <option [value]="estado" [selected]="estado === solicitud.estado">
+                {{ estado }}
+              </option>
             }
           </select>
         </label>
-        <button type="button" class="btn-eliminar" (click)="eliminar(solicitud.id)">Eliminar</button>
+
+        <button type="button" class="btn-eliminar" (click)="eliminar(solicitud.id)">
+          Eliminar
+        </button>
       </div>
     </article>
   } @empty {
     <div class="vacio">
-      <span class="vacio-icono">📭</span>
-      <h3>No hay solicitudes registradas</h3>
-      <p>Use el formulario para registrar el primer caso de soporte.</p>
+      <span class="vacio-icono">🔎</span>
+      @if (filtroActual() === 'Todos') {
+        <h3>No hay solicitudes registradas</h3>
+        <p>Use el botón «Nueva solicitud» para registrar el primer caso de soporte.</p>
+      } @else {
+        <h3>0 solicitudes con estado «{{ filtroActual() }}»</h3>
+        <p>El filtro no encontró registros. Pruebe otro estado o vuelva a «Todos».</p>
+      }
     </div>
   }
 
-  <section class="resumen">
-    <div class="resumen-cabecera">
-      <div>
-        <p class="etiqueta">Panel diferido</p>
-        <h3>Resumen del tablero</h3>
-      </div>
-      <span class="chip">&#64;defer</span>
-    </div>
-
-    @defer (on interaction) {
-      <app-resumen-panel />
-    } @placeholder {
-      <button type="button" class="btn-resumen">
-        <span>Ver resumen del tablero</span>
-        <small>El panel se carga cuando usted interactúa con este botón.</small>
-      </button>
-    } @loading (minimum 250ms) {
-      <p class="cargando">Cargando resumen…</p>
-    }
-  </section>
+  <details class="taller07">
+    <summary>Búsqueda reactiva del Taller 07</summary>
+    <app-busqueda-solicitudes />
+  </details>
 </section>

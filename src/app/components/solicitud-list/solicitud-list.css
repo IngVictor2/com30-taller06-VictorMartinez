@@ -9,6 +9,13 @@
   gap: 0.8rem;
 }
 
+.ayuda {
+  color: #64748b;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  margin-top: 0.35rem;
+}
+
 .contadores {
   display: flex;
   flex-direction: column;
@@ -25,6 +32,85 @@
   font-size: 1rem;
 }
 
+.barra-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  background: #f8fafc;
+  padding: 0.6rem;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: var(--blanco);
+  color: var(--tinta-suave);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.4rem 0.7rem;
+  text-decoration: none;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.filtro span {
+  display: grid;
+  place-items: center;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 999px;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 0.66rem;
+  padding: 0 0.25rem;
+}
+
+.filtro:hover {
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.filtro.activo {
+  border-color: var(--azul);
+  background: var(--azul);
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.22);
+}
+
+.filtro.activo span {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.btn-nueva {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.resultado-filtro {
+  color: #64748b;
+  font-size: 0.76rem;
+}
+
+.resultado-filtro strong {
+  color: var(--azul-oscuro);
+}
+
 .registro {
   border: 1px solid var(--borde);
   border-radius: 14px;
@@ -39,9 +125,17 @@
   gap: 0.6rem;
 }
 
-.registro-cabecera h3 {
+.codigo-enlace {
+  color: var(--tinta);
   font-size: 0.95rem;
+  font-weight: 800;
   letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.codigo-enlace:hover {
+  color: var(--azul-oscuro);
+  text-decoration: underline;
 }
 
 .correo {
@@ -139,18 +233,34 @@
 
 .registro-acciones {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 0.6rem;
   margin-top: 0.7rem;
   padding-top: 0.65rem;
   border-top: 1px solid #e2e8f0;
 }
 
+.btn-detalle {
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.38rem 0.6rem;
+  text-decoration: none;
+}
+
+.btn-detalle:hover {
+  background: #dbeafe;
+}
+
 .selector-estado {
   display: flex;
   align-items: center;
   gap: 0.45rem;
+  margin-left: auto;
   color: #64748b;
   font-size: 0.72rem;
   font-weight: 700;
@@ -211,70 +321,40 @@
   font-size: 0.78rem;
 }
 
-.resumen {
-  margin-top: 0.3rem;
+.taller07 {
+  margin-top: 0.4rem;
   border-top: 1px solid var(--borde);
   padding-top: 0.9rem;
 }
 
-.resumen-cabecera {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
-}
-
-.resumen-cabecera h3 {
-  font-size: 0.95rem;
-}
-
-.btn-resumen {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.15rem;
-  width: 100%;
-  border: 1px dashed #93c5fd;
-  border-radius: 12px;
-  background: #eff6ff;
-  color: #1e40af;
-  padding: 0.8rem;
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.btn-resumen:hover {
-  background: #dbeafe;
-  border-color: #3b82f6;
-}
-
-.btn-resumen span {
-  font-size: 0.84rem;
+.taller07 summary {
+  color: var(--azul-oscuro);
+  font-size: 0.82rem;
   font-weight: 800;
+  cursor: pointer;
+  padding: 0.35rem 0;
 }
 
-.btn-resumen small {
-  color: #64748b;
-  font-size: 0.7rem;
-  font-weight: 600;
+.taller07[open] summary {
+  margin-bottom: 0.7rem;
 }
 
-.cargando {
-  color: #64748b;
-  font-size: 0.78rem;
-  font-style: italic;
-  padding: 0.6rem 0;
-}
-
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .registro-cabecera {
     flex-direction: column;
   }
 
   .badges {
     justify-content: flex-start;
+  }
+
+  .barra-filtros {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .btn-nueva {
+    text-align: center;
   }
 
   .registro-acciones {
@@ -284,5 +364,6 @@
 
   .selector-estado {
     justify-content: space-between;
+    margin-left: 0;
   }
 }

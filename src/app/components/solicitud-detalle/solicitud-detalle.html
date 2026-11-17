@@ -1,0 +1,93 @@
+<section class="detalle">
+  <a class="volver" routerLink="/solicitudes">← Volver al listado</a>
+
+  @if (solicitud(); as registro) {
+    <article class="tarjeta">
+      <div class="tarjeta-cabecera">
+        <div>
+          <p class="etiqueta">Detalle de solicitud</p>
+          <h2>{{ registro.codigo }} · {{ registro.solicitante }}</h2>
+          <p class="url-vista">
+            URL de esta vista: <code>/solicitudes/{{ registro.codigo }}</code>
+          </p>
+        </div>
+        <div class="badges">
+          <span class="badge {{ clasePrioridad(registro) }}">{{ registro.prioridad }}</span>
+          <span class="badge {{ claseEstado(registro.estado) }}">{{ registro.estado }}</span>
+        </div>
+      </div>
+
+      <div class="datos">
+        <div class="dato">
+          <span>Código</span>
+          <strong>{{ registro.codigo }}</strong>
+        </div>
+        <div class="dato">
+          <span>Solicitante</span>
+          <strong>{{ registro.solicitante }}</strong>
+        </div>
+        <div class="dato">
+          <span>Correo</span>
+          <strong>{{ registro.correo }}</strong>
+        </div>
+        <div class="dato">
+          <span>Categoría</span>
+          <strong>{{ registro.categoria }}</strong>
+        </div>
+        <div class="dato">
+          <span>Prioridad</span>
+          <strong>{{ registro.prioridad }}</strong>
+        </div>
+        <div class="dato">
+          <span>Fecha</span>
+          <strong>{{ formatearFecha(registro.fecha) }}</strong>
+        </div>
+      </div>
+
+      <section class="bloque-detalle">
+        <h3>Impacto en el servicio</h3>
+        <p>{{ registro.impacto || 'No registrado' }}</p>
+      </section>
+
+      <section class="bloque-detalle">
+        <h3>Descripción</h3>
+        <p>{{ registro.descripcion }}</p>
+      </section>
+
+      <section class="bloque-detalle">
+        <h3>Equipos afectados</h3>
+        <div class="equipos">
+          @for (equipo of registro.equipos; track equipo.codigo) {
+            <span class="equipo">{{ equipo.codigo }} · {{ equipo.ubicacion }}</span>
+          }
+        </div>
+      </section>
+
+      <div class="acciones-detalle">
+        <label class="selector-estado">
+          <span>Cambiar estado</span>
+          <select (change)="cambiarEstado($event)">
+            @for (estado of estados; track estado) {
+              <option [value]="estado" [selected]="estado === registro.estado">{{ estado }}</option>
+            }
+          </select>
+        </label>
+
+        <button type="button" class="btn-eliminar" (click)="eliminar()">Eliminar solicitud</button>
+      </div>
+    </article>
+  } @else {
+    <article class="tarjeta no-existe">
+      <p class="etiqueta">Detalle de solicitud</p>
+      <h2>No existe la solicitud {{ id() }}</h2>
+      <p>
+        El código <strong>{{ id() }}</strong> no está registrado en la mesa de ayuda. Esta es la
+        vista de detalle, no la página 404: la ruta sí existe, pero el registro no.
+      </p>
+      <p class="url-vista">
+        URL solicitada: <code>/solicitudes/{{ id() }}</code>
+      </p>
+      <a class="btn-primario" routerLink="/solicitudes">Ver todas las solicitudes</a>
+    </article>
+  }
+</section>

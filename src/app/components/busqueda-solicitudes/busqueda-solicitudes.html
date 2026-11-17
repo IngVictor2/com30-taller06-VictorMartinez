@@ -4,7 +4,8 @@
       <p class="etiqueta">Taller 07 · Búsqueda reactiva</p>
       <h2>Buscar solicitudes de soporte</h2>
       <p class="ayuda">
-        La búsqueda compara el texto con <b>solicitante</b> e <b>impacto</b>. No distingue mayúsculas ni tildes.
+        La búsqueda compara el texto con <b>solicitante</b> e <b>impacto</b>. No distingue
+        mayúsculas ni tildes.
       </p>
     </div>
     <div class="llamadas" title="Consultas ejecutadas en el servicio">
@@ -71,11 +72,13 @@
         <tbody>
           @for (solicitud of visibles(); track solicitud.id) {
             <tr>
-              <td class="codigo">R{{ solicitud.id.toString().padStart(2, '0') }}</td>
+              <td class="codigo">{{ solicitud.codigo }}</td>
               <td>{{ solicitud.solicitante }}</td>
               <td>{{ solicitud.impacto }}</td>
               <td>
-                <span class="badge {{ claseEstado(solicitud.estado) }}">{{ solicitud.estado }}</span>
+                <span class="badge {{ claseEstado(solicitud.estado) }}">{{
+                  solicitud.estado
+                }}</span>
               </td>
             </tr>
           } @empty {

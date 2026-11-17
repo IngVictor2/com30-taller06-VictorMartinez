@@ -1,0 +1,252 @@
+:host {
+  display: block;
+}
+
+.detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.volver {
+  align-self: flex-start;
+  color: var(--azul-oscuro);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-decoration: none;
+  padding: 0.3rem 0;
+}
+
+.volver:hover {
+  text-decoration: underline;
+}
+
+.url-vista {
+  color: #64748b;
+  font-size: 0.74rem;
+  margin-top: 0.35rem;
+}
+
+.url-vista code {
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.12rem 0.35rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.3rem;
+}
+
+.badge {
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  white-space: nowrap;
+}
+
+.prioridad-baja {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.prioridad-media {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.prioridad-alta {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.prioridad-critica {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.estado-pendiente {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.estado-proceso {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.estado-resuelto {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.dato {
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 0.65rem 0.75rem;
+  min-width: 0;
+}
+
+.dato span {
+  display: block;
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.dato strong {
+  color: var(--tinta);
+  font-size: 0.84rem;
+  overflow-wrap: anywhere;
+}
+
+.bloque-detalle {
+  border-top: 1px solid var(--borde);
+  padding-top: 0.8rem;
+  margin-top: 0.9rem;
+}
+
+.bloque-detalle h3 {
+  color: var(--tinta-suave);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.bloque-detalle p {
+  color: #334155;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.equipos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.equipo {
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  color: #1e40af;
+  border-radius: 7px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+}
+
+.acciones-detalle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  border-top: 1px solid var(--borde);
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+}
+
+.selector-estado {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.selector-estado select {
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: var(--blanco);
+  color: var(--tinta);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.55rem;
+  outline: none;
+}
+
+.selector-estado select:focus {
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.13);
+}
+
+.btn-eliminar {
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+  background: #fff1f2;
+  color: #b91c1c;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  background: #ffe4e6;
+}
+
+.no-existe {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  border-color: #fde68a;
+  background: linear-gradient(135deg, #fffbeb, #ffffff);
+}
+
+.no-existe h2 {
+  color: #92400e;
+}
+
+.no-existe p {
+  color: #475569;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.no-existe .btn-primario {
+  margin-top: 0.35rem;
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .datos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .datos {
+    grid-template-columns: 1fr;
+  }
+
+  .acciones-detalle {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .selector-estado {
+    justify-content: space-between;
+  }
+}
