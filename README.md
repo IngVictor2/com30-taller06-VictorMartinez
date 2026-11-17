@@ -48,7 +48,7 @@ El servicio inicia con **12 registros** y **3 estados**: `Pendiente`, `En proces
 | C1 | Abrir `/` | Redirige a `/solicitudes`: 12 registros. Menú «Solicitudes» activo. | Redirigió a `/solicitudes`; 12 registros; «Solicitudes» activo. |
 | C2 | Pulsar el filtro «Pendiente» | URL `/solicitudes?estado=Pendiente` · 4 registros (R01, R04, R06, R11). | URL y 4 registros correctos. |
 | C3 | Recargar con F5 en C2 | Los mismos 4 registros y el filtro «Pendiente» marcado. | Se conservaron los 4 registros y el filtro activo. |
-| C4 | Escribir `/solicitudes?estado=Cancelado` | Mensaje de `@empty`: 0 registros con ese estado. | Mostró «0 solicitudes con estado «Cancelado»». |
+| C4 | Escribir `/solicitudes?estado=Cancelado` | Mensaje de `@empty`: 0 registros con ese estado. | Mostró el mensaje de `@empty` con 0 registros para «Cancelado». |
 | C5 | Pulsar la fila R05 | URL `/solicitudes/R05` · Diana Ruiz · Software · Resuelto. «Solicitudes» sigue activo. | URL, datos y menú correctos. |
 | C6 | Escribir `/solicitudes/R99` | Mensaje «No existe la solicitud R99» dentro del detalle; no es la vista 404. | Mensaje dentro del detalle; no apareció la 404. |
 | C7 | Escribir `/reportes` | Vista 404 con la dirección escrita y un enlace al listado. | Mostró `/reportes` y el enlace de regreso. |
