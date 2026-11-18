@@ -7,9 +7,9 @@ import { SolicitudForm } from './components/solicitud-form/solicitud-form';
 import { SolicitudList } from './components/solicitud-list/solicitud-list';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'solicitudes', pathMatch: 'full' },
   { path: 'parcial2/detalle/:codigo', component: DetalleParcial },
   { path: 'parcial2', component: SolicitudParcial },
-  { path: '', redirectTo: 'solicitudes', pathMatch: 'full' },
   {
     path: 'solicitudes',
     component: SolicitudList,

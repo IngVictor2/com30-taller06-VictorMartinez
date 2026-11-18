@@ -14,6 +14,7 @@
       <input id="cantidad" inputmode="numeric" formControlName="cantidad">
       @if (campos.cantidad.touched || campos.cantidad.dirty) {
         @if (campos.cantidad.hasError('required')) { <small>Ingrese la cantidad.</small> }
+        @if (campos.cantidad.hasError('pattern')) { <small>Ingrese un número entero.</small> }
         @if (campos.cantidad.hasError('min')) { <small>El mínimo es 1.</small> }
         @if (campos.cantidad.hasError('max')) { <small>El máximo es {{ tope }}.</small> }
         @if (campos.cantidad.hasError('multiplo')) { <small>Debe ser múltiplo de {{ m }}.</small> }

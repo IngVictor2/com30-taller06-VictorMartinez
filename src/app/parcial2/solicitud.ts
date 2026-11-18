@@ -16,7 +16,7 @@ export class SolicitudParcial {
   readonly tope = TOPE;
   readonly formulario = this.fb.group({
     codigo: ['', [Validators.required, Validators.pattern(CODIGO)]],
-    cantidad: ['', [Validators.required, Validators.min(1), Validators.max(TOPE), multiplo]],
+    cantidad: ['', [Validators.required, Validators.pattern(/^-?\d+$/), Validators.min(1), Validators.max(TOPE), multiplo]],
     desde: ['10', [Validators.required, Validators.pattern(/^-?\d+$/)]],
     hasta: ['11', [Validators.required, Validators.pattern(/^-?\d+$/)]],
   }, { validators: hastaMayor });
