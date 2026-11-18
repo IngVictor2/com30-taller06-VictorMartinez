@@ -1,10 +1,11 @@
+import { BusquedaParcial } from './busqueda';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CODIGO, M, TOPE, hastaMayor, multiplo } from './validadores';
 
 @Component({
   selector: 'app-parcial-solicitud',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, BusquedaParcial],
   templateUrl: './solicitud.html',
 })
 export class SolicitudParcial {
