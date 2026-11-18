@@ -1,0 +1,39 @@
+<section class="tarjeta">
+  <header class="tarjeta-cabecera"><h2>Solicitud del parcial</h2></header>
+  <form [formGroup]="formulario" (ngSubmit)="enviar()">
+    <div class="campo">
+      <label for="codigo">Código</label>
+      <input id="codigo" formControlName="codigo" placeholder="AB123">
+      @if (campos.codigo.touched || campos.codigo.dirty) {
+        @if (campos.codigo.hasError('required')) { <small>Ingrese el código.</small> }
+        @if (campos.codigo.hasError('pattern')) { <small>Use dos letras mayúsculas y tres dígitos.</small> }
+      }
+    </div>
+    <div class="campo">
+      <label for="cantidad">Cantidad</label>
+      <input id="cantidad" inputmode="numeric" formControlName="cantidad">
+      @if (campos.cantidad.touched || campos.cantidad.dirty) {
+        @if (campos.cantidad.hasError('required')) { <small>Ingrese la cantidad.</small> }
+        @if (campos.cantidad.hasError('min')) { <small>El mínimo es 1.</small> }
+        @if (campos.cantidad.hasError('max')) { <small>El máximo es {{ tope }}.</small> }
+        @if (campos.cantidad.hasError('multiplo')) { <small>Debe ser múltiplo de {{ m }}.</small> }
+      }
+    </div>
+    <div class="campo">
+      <label for="desde">Desde</label>
+      <input id="desde" inputmode="numeric" formControlName="desde">
+      @if ((campos.desde.touched || campos.desde.dirty) && campos.desde.invalid) {
+        <small>Ingrese un número entero para el inicio.</small>
+      }
+    </div>
+    <div class="campo">
+      <label for="hasta">Hasta</label>
+      <input id="hasta" inputmode="numeric" formControlName="hasta">
+      @if (campos.hasta.touched || campos.hasta.dirty) {
+        @if (campos.hasta.invalid) { <small>Ingrese un número entero para el fin.</small> }
+        @if (formulario.hasError('hastaMayor')) { <small>Hasta debe ser mayor que desde.</small> }
+      }
+    </div>
+    <button class="btn btn-primario" type="submit">Ver detalle</button>
+  </form>
+</section>
