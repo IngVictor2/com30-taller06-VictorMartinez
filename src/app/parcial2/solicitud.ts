@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { BusquedaParcial } from './busqueda';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,6 +10,7 @@ import { CODIGO, M, TOPE, hastaMayor, multiplo } from './validadores';
   templateUrl: './solicitud.html',
 })
 export class SolicitudParcial {
+  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder).nonNullable;
   readonly m = M;
   readonly tope = TOPE;
@@ -22,5 +24,8 @@ export class SolicitudParcial {
 
   enviar() {
     this.formulario.markAllAsTouched();
+    if (this.formulario.invalid) return;
+    const { codigo, cantidad } = this.formulario.getRawValue();
+    void this.router.navigate(["/parcial2/detalle", codigo], { queryParams: { cantidad } });
   }
 }

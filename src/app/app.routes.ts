@@ -1,3 +1,4 @@
+import { DetalleParcial } from './parcial2/detalle';
 import { SolicitudParcial } from './parcial2/solicitud';
 import { Routes } from '@angular/router';
 import { NoEncontrada } from './components/no-encontrada/no-encontrada';
@@ -6,6 +7,7 @@ import { SolicitudForm } from './components/solicitud-form/solicitud-form';
 import { SolicitudList } from './components/solicitud-list/solicitud-list';
 
 export const routes: Routes = [
+  { path: 'parcial2/detalle/:codigo', component: DetalleParcial },
   { path: 'parcial2', component: SolicitudParcial },
   { path: '', redirectTo: 'solicitudes', pathMatch: 'full' },
   {
