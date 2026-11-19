@@ -30,9 +30,12 @@
     <div class="campo">
       <label for="hasta">Hasta</label>
       <input id="hasta" inputmode="numeric" formControlName="hasta">
-      @if (campos.hasta.touched || campos.hasta.dirty) {
-        @if (campos.hasta.invalid) { <small>Ingrese un número entero para el fin.</small> }
-        @if (formulario.hasError('hastaMayor')) { <small>Hasta debe ser mayor que desde.</small> }
+      @if ((campos.hasta.touched || campos.hasta.dirty) && campos.hasta.invalid) {
+        <small>Ingrese un número entero para el fin.</small>
+      }
+      @if (formulario.hasError('hastaMayor') &&
+           (campos.desde.touched || campos.desde.dirty || campos.hasta.touched || campos.hasta.dirty)) {
+        <small>Hasta debe ser mayor que desde.</small>
       }
     </div>
     <button class="btn btn-primario" type="submit">Ver detalle</button>
